@@ -2,21 +2,22 @@
 #include <fstream>
 #include <string>
 #include <set>
-#include <vector>
 #include <unordered_map>
 using namespace std;
 int main(int confidance, int support)
 {
+    int confidence = 65;
+    int support = 0;
     int index = 0;
     float conf = (double)confidance/100;
     string scope = "";
     string call = "";
     unordered_map< string, set<string> > scopeMap;
-    unordered_map< string ,int> funcalls;
-    set<string> callVector;
+    unordered_map< string, int> funcalls;
+    set<string> callSet;
     set<string> allFuncs;
     ifstream myfile("./dump.txt");
-//    ifstream myfile("C:\\Users\\Egill\\Desktop\\bla\\callGraph.txt");
+//    ifstream myfile("C:\\Users\\Egill\\Desktop\\bla\\bla.txt");
 
     if(myfile.is_open()) {
         getline(myfile,scope);          // Eats the "Root of the callGraph"
@@ -29,26 +30,31 @@ int main(int confidance, int support)
             }
             while(getline(myfile,call)) {   // Inner loop runs though scope's elements
                 if(call == "") {
-                    //scopeMap.insert({scope, callVector});
-	            set<string>::iterator it;
-		    set<string>::iterator it2;
-		    for(it = callVector.begin(); it != callVector.end(); ++it){
-			set<string>::iterator itTmp = it;
-		    	for(it2 = ++itTmp; it2 != callVector.end(); it2++){
-		            string fun = *it + *it2;
-			    if(funcalls.count(fun)){funcalls[fun]++;}
-                    	    else{funcalls.insert({fun,1});}
-               		}
-		    }
-		    callVector.clear();
+                    set<string>::iterator it;
+                    set<string>::iterator it2;
+                    for(it = callSet.begin(); it != callSet.end(); ++it){
+                        set<string>::iterator itTmp = it;
+                        for(it2 = ++itTmp; it2 != callSet.end(); it2++){
+                            string fun = *it + *it2;
+                            if(funcalls.count(fun)){
+                                funcalls[fun]++;
+                            } else {
+                                funcalls.insert({fun,1});
+                            }
+                        }
+                    }
+                    callSet.clear();
                     break;
                 } else if(call[call.size() - 1] == '\'') {
                     index = call.find('\'') + 1;
-                    string fun = call.substr(index, call.find('\'', index) - index);
-		    if(funcalls.count(fun)){funcalls[fun]++;}
-		    else{funcalls.insert({fun,1});}
-                    callVector.insert(fun);
-		    allFuncs.insert(fun);
+                    call = call.substr(index, call.find('\'', index) - index);
+                    if(funcalls.count(call)){
+                        funcalls[call]++;
+                    } else {
+                        funcalls.insert({call,1});
+                    }
+                    callSet.insert(call);
+                    allFuncs.insert(call);
                 }
             }
         }
@@ -61,12 +67,12 @@ int main(int confidance, int support)
     for(it = allFuncs.begin(); it != allFuncs.end(); ++it){
         set<string>::iterator itTmp = it;
         for(it2 = ++itTmp; it2 != allFuncs.end(); it2++){
-                string combo = *it + *it2;
-		double confit1 = ((double)funcalls[combo])/funcalls[*it];
-		double confit2 = ((double)funcalls[combo])/funcalls[*it2];
-		if(confit1 > 0.65 && confit1 != 1 && funcalls.count(combo) >= support){cout << "bug: " << *}
-		if(confit2 > 0.65 && confit2 != 1 && funcalls.count(combo) >= support){cout << combo << "is under threshold: " << confit2 << endl;}
-	}
+            string combo = *it + *it2;
+            double confit1 = ((double)(int)((10000*((double)funcalls[combo])/funcalls[*it] ) + 0.5) / 100);
+            double confit2 = ((double)(int)((10000*((double)funcalls[combo])/funcalls[*it2]) + 0.5) / 100);
+            if(confit1 > confidence && confit1 < 100){cout << "bug: " << *it  << " in " << "TODO:scope" << ", pair: (" << *it << ", " << *it2 << "), support: " << support << ", confidence: " << confit1 << "%\n";}
+            if(confit2 > confidence && confit2 < 100){cout << "bug: " << *it2 << " in " << "TODO:scope" << ", pair: (" << *it << ", " << *it2 << "), support: " << support << ", confidence: " << confit2 << "%\n";}
+        }
     }
     return 0;
 }
