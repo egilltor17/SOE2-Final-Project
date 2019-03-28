@@ -4,9 +4,9 @@
 #include <set>
 #include <unordered_map>
 using namespace std;
-int main(int confidance, int support)
+int main(int argc, char** argv)
 {
-    int confidence = 65;
+    int confidance = 65;
     int support = 0;
     int index = 0;
     float conf = (double)confidance/100;
@@ -70,8 +70,8 @@ int main(int confidance, int support)
             string combo = *it + *it2;
             double confit1 = ((double)(int)((10000*((double)funcalls[combo])/funcalls[*it] ) + 0.5) / 100);
             double confit2 = ((double)(int)((10000*((double)funcalls[combo])/funcalls[*it2]) + 0.5) / 100);
-            if(confit1 > confidence && confit1 < 100){cout << "bug: " << *it  << " in " << "TODO:scope" << ", pair: (" << *it << ", " << *it2 << "), support: " << support << ", confidence: " << confit1 << "%\n";}
-            if(confit2 > confidence && confit2 < 100){cout << "bug: " << *it2 << " in " << "TODO:scope" << ", pair: (" << *it << ", " << *it2 << "), support: " << support << ", confidence: " << confit2 << "%\n";}
+            if(confit1 > confidance && confit1 < 100){cout << "bug: " << *it  << " in " << "TODO:scope" << ", pair: (" << *it << ", " << *it2 << "), support: " << support << ", confidance: " << confit1 << "%\n";}
+            if(confit2 > confidance && confit2 < 100){cout << "bug: " << *it2 << " in " << "TODO:scope" << ", pair: (" << *it << ", " << *it2 << "), support: " << support << ", confidance: " << confit2 << "%\n";}
         }
     }
     return 0;
