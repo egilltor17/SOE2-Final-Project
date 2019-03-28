@@ -1,67 +1,11 @@
 CallGraph Root is: main
-Call graph node <<null function>><<0x180e240>>  #uses=0
+Call graph node <<null function>><<0x6a9a90>>  #uses=0
   CS<0x0> calls function 'main'
-  CS<0x0> calls function 'scope1'
-  CS<0x0> calls function 'scope2'
-  CS<0x0> calls function 'scope3'
-  CS<0x0> calls function 'scope4'
-  CS<0x0> calls function 'scope5'
-  CS<0x0> calls function 'scope6'
-  CS<0x0> calls function 'A'
   CS<0x0> calls function 'printf'
-  CS<0x0> calls function 'B'
-  CS<0x0> calls function 'C'
-  CS<0x0> calls function 'D'
 
-Call graph node for function: 'main'<<0x180e2e0>>  #uses=1
-  CS<0x180fbb8> calls function 'scope1'
-  CS<0x180fc38> calls function 'scope2'
-  CS<0x180fcb8> calls function 'scope3'
-  CS<0x180fd38> calls function 'scope4'
-  CS<0x180f028> calls function 'scope5'
-  CS<0x180f0a8> calls function 'scope6'
-
-Call graph node for function: 'scope5'<<0x1833610>>  #uses=2
-  CS<0x1823b48> calls function 'B'
-  CS<0x1823bc8> calls function 'D'
-  CS<0x1823c48> calls function 'A'
-
-Call graph node for function: 'scope1'<<0x1814700>>  #uses=3
-  CS<0x180f208> calls function 'A'
-  CS<0x180f288> calls function 'B'
-  CS<0x180f308> calls function 'C'
-  CS<0x180f388> calls function 'D'
-
-Call graph node for function: 'scope2'<<0x18147a0>>  #uses=2
-  CS<0x1823508> calls function 'A'
-  CS<0x1823588> calls function 'C'
-  CS<0x1823608> calls function 'D'
-
-Call graph node for function: 'scope3'<<0x1814730>>  #uses=2
-  CS<0x1823748> calls function 'A'
-  CS<0x18237c8> calls function 'B'
-
-Call graph node for function: 'scope4'<<0x18147d0>>  #uses=2
-  CS<0x1823908> calls function 'B'
-  CS<0x1823988> calls function 'D'
-  CS<0x1823a08> calls function 'scope1'
-
-Call graph node for function: 'scope6'<<0x1833540>>  #uses=2
-  CS<0x1823d88> calls function 'B'
-  CS<0x1823e08> calls function 'D'
-
-Call graph node for function: 'A'<<0x1814690>>  #uses=5
-  CS<0x1824070> calls function 'printf'
-
-Call graph node for function: 'printf'<<0x1812bd0>>  #uses=5
+Call graph node for function: 'printf'<<0x6a1360>>  #uses=2
   CS<0x0> calls external node
 
-Call graph node for function: 'B'<<0x1833800>>  #uses=6
-  CS<0x18242e0> calls function 'printf'
-
-Call graph node for function: 'C'<<0x1833790>>  #uses=3
-  CS<0x1824550> calls function 'printf'
-
-Call graph node for function: 'D'<<0x1833990>>  #uses=6
-  CS<0x18247c0> calls function 'printf'
+Call graph node for function: 'main'<<0x6a9b30>>  #uses=1
+  CS<0x6a26f0> calls function 'printf'
 

@@ -5,9 +5,10 @@
 #include <vector>
 #include <unordered_map>
 using namespace std;
-int main()
+int main(int confidance, int support)
 {
     int index = 0;
+    float conf = (double)confidance/100;
     string scope = "";
     string call = "";
     unordered_map< string, set<string> > scopeMap;
@@ -63,8 +64,8 @@ int main()
                 string combo = *it + *it2;
 		double confit1 = ((double)funcalls[combo])/funcalls[*it];
 		double confit2 = ((double)funcalls[combo])/funcalls[*it2];
-		if(confit1 > 0.65 && confit1 != 1){cout << combo << "is under threshold: " << confit1 << endl;}
-		if(confit2 > 0.65 && confit2 != 1){cout << combo << "is under threshold: " << confit2 << endl;}
+		if(confit1 > 0.65 && confit1 != 1 && funcalls.count(combo) >= support){cout << "bug: " << *}
+		if(confit2 > 0.65 && confit2 != 1 && funcalls.count(combo) >= support){cout << combo << "is under threshold: " << confit2 << endl;}
 	}
     }
     return 0;
