@@ -16,8 +16,8 @@ int main(int argc, char** argv)
     set<string> calledInScope;
     unordered_map< string, pair< set<string>, int > > funCalls;
     pair< set<string>, int > scopeAndCount = {callScopes, 1};
-//    ifstream myfile("./dump.txt");
-    ifstream myfile("C:\\Users\\Egill\\Desktop\\bla\\bla.txt");
+    ifstream myfile("./dump.txt");
+//    ifstream myfile("C:\\Users\\Egill\\Desktop\\bla\\bla.txt");
 //    ifstream myfile("C:\\Users\\Egill\\Desktop\\bla\\callGraph.txt");
     set<string>::iterator it;
     set<string>::iterator it2;
