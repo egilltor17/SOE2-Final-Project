@@ -15,8 +15,8 @@ int main(int argc, char* argv[])
 //    cout << argv[3] << endl;
 
     string fileDir = (argc > 1) ? (string)argv[1] : "./dump.txt";
-    int confidence = (argc == 4) ? atoi(argv[2]) : 65; // Default confidence is 65     - the range [confidence, 1] determines whether or not the bug get reported.
-    int support =    (argc == 4) ? atoi(argv[3]) : 3;  // Default support         - the minimum occurrence of a function pair to be considered as a "bug".
+    int confidence = (argc == 4) ? atoi(argv[3]) : 65; // Default confidence is 65     - the range [confidence, 1] determines whether or not the bug get reported.
+    int support =    (argc == 4) ? atoi(argv[2]) : 3;  // Default support         - the minimum occurrence of a function pair to be considered as a "bug".
     int index = 0;
     cout << "Confidence: " << confidence << endl;
     cout << "Support: " << support << endl;
@@ -48,6 +48,8 @@ int main(int argc, char* argv[])
             }
             while(getline(myfile,call)) {   // Inner loop runs though scope's elements
                 if(call == "") {            // call is empty string --> scope has ended
+		    scopeAndCount.clear();
+	            scopeAndCount.insert(scope);
                     for(it = calledInScope.begin(); it != calledInScope.end(); it++){
                         itTmp = it;
                         for(it2 = ++itTmp; it2 != calledInScope.end(); it2++){
@@ -55,8 +57,6 @@ int main(int argc, char* argv[])
                             if(funCalls.count(fun)){
                                 funCalls[fun].insert(scope);
                             } else {
-                                scopeAndCount.clear();
-                                scopeAndCount.insert(scope);
                                 funCalls[fun] = scopeAndCount;
                             }
                         }
