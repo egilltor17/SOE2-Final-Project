@@ -23,7 +23,9 @@ int main(int argc, char* argv[])
     set<string>::iterator it2;
     set<string>::iterator it3;
     set<string>::iterator itTmp;
-    cout << fileDir;
+    cout << fileDir << endl;
+    cout << support << endl;
+    cout << confidence << endl;
     if(myfile.is_open()) {
         getline(myfile,scope);          // Eats the "Root of the callGraph"
         while(getline(myfile,scope)) {  // Outer loop runs through the scopes
