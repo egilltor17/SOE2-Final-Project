@@ -4,11 +4,18 @@
 #include <set>
 #include <unordered_map>
 using namespace std;
-int main(int argc, char** argv)
+int main(int argc, char* argv[])
 {
-    int confidence = 65;                // Default confidence      - the range [confidence, 1] determines whether or not the bug get reported.
-    int support = 0;                    // Default support         - the minimum occurrence of a function pair to be considered as a "bug".
-    int index = 0;                      // Index of char in string - used to isolate function names form the callGraph data.
+    cout << argc << endl;
+//    cout << argv[0] << endl;
+//    cout << argv[1] << endl;
+//    cout << argv[2] << endl;
+//    cout << argv[3] << endl;
+    string fileDir = (argc > 1) ? (string)argv[1] : "./dump.txt";
+    int confidence = (argc == 4) ? (int)argv[2] : 65; // Default confidence is 65     - the range [confidence, 1] determines whether or not the bug get reported.
+    int support =    (argc == 4) ? (int)argv[3] : 3;  // Default support         - the minimum occurrence of a function pair to be considered as a "bug".
+    int index = 0;                                    // Index of char in string - used to isolate function names form the callGraph data.
+    ifstream myfile(fileDir);
     string scope = "";
     string call = "";
     set<string> allFuncs;
@@ -16,22 +23,22 @@ int main(int argc, char** argv)
     set<string> calledInScope;
     unordered_map< string, pair< set<string>, int > > funCalls;
     pair< set<string>, int > scopeAndCount = {callScopes, 1};
-    ifstream myfile("./dump.txt");
-//    ifstream myfile("C:\\Users\\Egill\\Desktop\\bla\\bla.txt");
-//    ifstream myfile("C:\\Users\\Egill\\Desktop\\bla\\callGraph.txt");
     set<string>::iterator it;
     set<string>::iterator it2;
     set<string>::iterator it3;
     set<string>::iterator itTmp;
-
+    cout << fileDir << endl;
     if(myfile.is_open()) {
+        cout << fileDir << endl;
+
         getline(myfile,scope);          // Eats the "Root of the callGraph"
         while(getline(myfile,scope)) {  // Outer loop runs through the scopes
             index = scope.find('\'') + 1;
             if(index) {
                 scope = scope.substr(index, scope.find('\'', index) - index);
             } else {
-                scope = "unknown_name";
+                // scope is null function and we skip it
+                while(getline(myfile,call) && call != "") {}
             }
             while(getline(myfile,call)) {   // Inner loop runs though scope's elements
                 if(call == "") {            // call is empty string --> scope has ended
